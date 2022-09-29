@@ -62,10 +62,9 @@ public class Walls {
 			}
 			return -1;
 		}
-		/* 
-			this was unused code that would be for calculating collisions if the wall was not vertical but we decided
-		   to make all the walls completely vertical so we would stop running into this error that the walls
-			extend infinitely in only one direction.
+		
+		// Everything below this calculates if the ray hits a wall when cast at an
+      // angle that isn't a multiple of 90.
 		
 		
 		if((0 <= jj.getAngle() && jj.getAngle() < 90) || (270 < jj.getAngle() && jj.getAngle() < 360)) {
@@ -102,7 +101,7 @@ public class Walls {
 					}
 				}
 			}
-		}*/
+		}
 		return -1;
 	}
 }
