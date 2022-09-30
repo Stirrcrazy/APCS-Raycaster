@@ -18,7 +18,7 @@ public class Camera {
    private static ArrayList<Walls> w; // an arraylist 
 	
    public static void main(String[] args) throws FileNotFoundException {
-      File f = new File("C:\\maptest.txt");
+      File f = new File("maptest.txt");
       Map m = new Map(f);
       w = m.getWalls();
       System.out.println(w);
