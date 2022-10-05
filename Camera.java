@@ -14,11 +14,11 @@ import java.io.*;
 public class Camera {
 
    public static final int HR = 600; // horizontal resolution of screen
-   public static final int VR = 600; // vartical resolution of screen
+   public static final int VR = 600; // vartical resolutiown of screen
    private static ArrayList<Walls> w; // an arraylist 
 	
    public static void main(String[] args) throws FileNotFoundException {
-      File f = new File("C:\\maptest.txt");
+      File f = new File("maptest.txt");
       Map m = new Map(f);
       w = m.getWalls();
       System.out.println(w);
@@ -107,7 +107,7 @@ public class Camera {
                g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR));
             }
          }
-         /*for (int j = 0; j < w.size(); j++) {
+         for (int j = 0; j < w.size(); j++) {
             shortestdist = w.get(0).collide(r);
             int k = 0;
             while (shortestdist == -1 && k < (w.size() - 1)) {
@@ -122,7 +122,7 @@ public class Camera {
          }
          if (closestwall < w.size()) { 
             if (w.get(closestwall).collide(r) != -1) {
-               int darken = (int) w.get(closestwall).collide(r);
+               int darken = (int) w.get(closestwall).collide(r)*2;
                if (darken > 255) {
                   darken = 255;
                }
@@ -130,7 +130,7 @@ public class Camera {
                g.setColor(c);
                g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR));
             }
-         }*/
+         }
       }
    }
    
