@@ -16,9 +16,10 @@ public class Camera {
    public static final int HR = 600; // horizontal resolution of screen
    public static final int VR = 600; // vartical resolution of screen
    private static ArrayList<Walls> w; // an arraylist 
+   private static int darken = 0;
 	
    public static void main(String[] args) throws FileNotFoundException {
-      File f = new File("C:\\maptest.txt");
+      File f = new File("maptest.txt");
       Map m = new Map(f);
       w = m.getWalls();
       System.out.println(w);
@@ -31,7 +32,7 @@ public class Camera {
       while (true) {
          g.setColor(Color.WHITE);
          g.fillRect(0, 0, HR, VR);
-         g.setColor(Color.RED);
+         //g.setColor(Color.RED); PASS DARKEN TO MAIN METHOD TO SET COLOR HERE OR MOVE SETCOLOR OUTSIDE IF STATEMENT IN DRAWFRAME
          drawFrame(x, y, cameraAngle, g);
          double[] newPos = move(x, y, cameraAngle, console);
          x = newPos[0];
@@ -92,7 +93,10 @@ public class Camera {
    public static void drawFrame(double x, double y, double cameraAngle, Graphics g) {
       int closestwall = 0;
       double shortestdist;
-      for (int i = 0; i <= HR; i++) {
+      int count = 50;
+      Color c = new Color(255 - (darken), 0, 0);
+      g.setColor(c);
+      for (int i = 0; i <= HR; i += 5) {
          double angle = cameraAngle + 45;
          angle = angle - (i * (90.0 / HR));
          if (angle >= 360) {
@@ -102,35 +106,49 @@ public class Camera {
             angle += 360;
          }
          Ray r = new Ray(x, y, angle);
-         for (int j = 0; j < w.size(); j++) {
-            if (w.get(j).collide(r) != -1) {
-               g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR));
-            }
-         }
-         /*for (int j = 0; j < w.size(); j++) {
-            shortestdist = w.get(0).collide(r);
-            int k = 0;
-            while (shortestdist == -1 && k < (w.size() - 1)) {
-               k++;
-               shortestdist = w.get(k).collide(r);
-            }
-            closestwall = k;
-            if (w.get(j).collide(r) < shortestdist && w.get(j).collide(r) != -1) {
-               shortestdist = w.get(j).collide(r);
-               closestwall = j;
+         //for (int j = 0; j < w.size(); j++) {
+            //if (w.get(j).collide(r) != -1) {
+               //for (int k = i; k < i + 20; k++) {
+                  //g.drawLine(k, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR), k, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR));
+               //}
+            //}
+         //}
+         /* Unused code that darkens the walls based on their distance from the camera. Far too performance intensive.*/
+         if (count == 50) {
+            for (int j = 0; j < w.size(); j++) {
+               shortestdist = w.get(0).collide(r);
+               int k = 0;
+               while (shortestdist == -1 && k < (w.size() - 1)) {
+                  k++;
+                  shortestdist = w.get(k).collide(r);
+               }
+               closestwall = k;
+               if (w.get(j).collide(r) < shortestdist && w.get(j).collide(r) != -1) {
+                  shortestdist = w.get(j).collide(r);
+                  closestwall = j;
+               }
             }
          }
          if (closestwall < w.size()) { 
-            if (w.get(closestwall).collide(r) != -1) {
-               int darken = (int) w.get(closestwall).collide(r);
+            if (w.get(closestwall).collide(r) != -1 && count == 50) {
+               darken = (int) w.get(closestwall).collide(r);
                if (darken > 255) {
                   darken = 255;
                }
-               Color c = new Color(255 - darken, 0, 0);
+               count -= 50;
+               c = new Color(255 - (darken), 0, 0);
                g.setColor(c);
-               g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR));
             }
-         }*/
+            for (int j = 0; j < w.size(); j++) {
+               if (w.get(j).collide(r) != -1) {
+                  for (int k = i; k < i + 20; k++) {
+                     g.drawLine(k, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR), k, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR));
+                  }
+               }
+            }
+            count += 5;
+            //g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR));
+         }
       }
    }
    
