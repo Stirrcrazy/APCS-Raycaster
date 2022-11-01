@@ -19,10 +19,10 @@ public class Map {
          int y1 = mapReader.nextInt();
          int x2 = mapReader.nextInt();
          int y2 = mapReader.nextInt();
-         if (x1 == x2) {
+         //if (x1 == x2) {
             Walls w = new Walls(x1, y1, x2, y2);
             walls.add(w);
-         }
+         /*}
          else if (y1 == y2) {
             for (double i = Math.min(x1, x2); i < Math.max(x1, x2); i += 0.1) {
                Walls v = new Walls(i, y1, i, y1 + 1);
@@ -35,9 +35,10 @@ public class Map {
                Walls u = new Walls(i, Math.min(y1, y2) + (slope * i), i, Math.min(y1, y2) + 1 + (slope * i));
                walls.add(u);
             }
+            */
          }
       }
-   }
+   
    
    // Returns the list of walls generated when this object is constructed.
    public ArrayList<Walls> getWalls() {

@@ -106,6 +106,7 @@ public class Camera {
             angle += 360;
          }
          Ray r = new Ray(x, y, angle);
+<<<<<<< HEAD
          //for (int j = 0; j < w.size(); j++) {
             //if (w.get(j).collide(r) != -1) {
                //for (int k = i; k < i + 20; k++) {
@@ -132,6 +133,29 @@ public class Camera {
          if (closestwall < w.size()) { 
             if (w.get(closestwall).collide(r) != -1 && count == 50) {
                darken = (int) w.get(closestwall).collide(r);
+=======
+         for (int j = 0; j < w.size(); j++) {
+            if (w.get(j).collide(r) != -1) {
+               g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(j).collide(r))) / 360) * VR));
+            }
+         }
+         for (int j = 0; j < w.size(); j++) {
+            shortestdist = w.get(0).collide(r);
+            int k = 0;
+            while (shortestdist == -1 && k < (w.size() - 1)) {
+               k++;
+               shortestdist = w.get(k).collide(r);
+            }
+            closestwall = k;
+            if (w.get(j).collide(r) < shortestdist && w.get(j).collide(r) != -1) {
+               shortestdist = w.get(j).collide(r);
+               closestwall = j;
+            }
+         }
+         if (closestwall < w.size()) { 
+            if (w.get(closestwall).collide(r) != -1) {
+               int darken = (int) w.get(closestwall).collide(r)*2;
+>>>>>>> e9aea23f7b1872796f446714f4a0ec94391586be
                if (darken > 255) {
                   darken = 255;
                }
@@ -139,6 +163,7 @@ public class Camera {
                c = new Color(255 - (darken), 0, 0);
                g.setColor(c);
             }
+<<<<<<< HEAD
             for (int j = 0; j < w.size(); j++) {
                if (w.get(j).collide(r) != -1) {
                   for (int k = i; k < i + 20; k++) {
@@ -148,6 +173,8 @@ public class Camera {
             }
             count += 5;
             //g.drawLine(i, (int) ((VR / 2) + (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR), i, (int) ((VR / 2) - (Math.toDegrees(Math.atan(50 / w.get(closestwall).collide(r))) / 360) * VR));
+=======
+>>>>>>> e9aea23f7b1872796f446714f4a0ec94391586be
          }
       }
    }
